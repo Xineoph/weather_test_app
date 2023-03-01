@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_test_app/screens/weather_result_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,8 +27,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(),
+      // appBar: AppBar(),
+      body: HomeScreen(),
     );
   }
 }
