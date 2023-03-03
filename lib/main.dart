@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_test_app/screens/weather_result_screen.dart';
 import 'package:weather_test_app/shared_preferences.dart';
 import 'package:weather_test_app/screens/register_screen.dart';
 import 'package:weather_test_app/screens/login_screen.dart';
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: _hasData ? const LoginWidget() : const RegisterWidget(),
     );
   }
