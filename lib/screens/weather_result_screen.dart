@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _getCurrentPositionAndWeather();
   }
+
 
   @override
   Widget build(BuildContext context) {
