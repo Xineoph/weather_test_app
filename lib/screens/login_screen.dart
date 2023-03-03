@@ -166,7 +166,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const WeatherWidget();
+                  return const HomeScreen();
                 }),
               );
               ScaffoldMessenger.of(context).showSnackBar(

@@ -225,7 +225,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
-                return const WeatherWidget();
+                return const HomeScreen();
               }),
             );
           }
