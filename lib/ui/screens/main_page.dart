@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_test_app/common/colors.dart';
 import 'package:weather_test_app/common/spacers.dart';
 import 'package:weather_test_app/common/text_styles.dart';
-import 'package:weather_test_app/data/location_sevice.dart';
+import 'package:weather_test_app/helpers/location_sevice.dart';
 import 'package:weather_test_app/data/weather_data.dart';
 import 'package:weather_test_app/data/weather_service.dart';
 import 'package:weather_test_app/ui/widgets/weather_card.dart';
@@ -39,8 +39,8 @@ class _MainScreenState extends State<MainScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 45,
-              bottom: 10,
+              top: 30,
+              bottom: 30,
               left: 10,
               right: 10,
             ),
@@ -48,24 +48,31 @@ class _MainScreenState extends State<MainScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // Форма поиска города
                 SearchForm(onSearch: _changeCity),
                 sizedBoxHeight50,
+                // Если искомый город не найден,
+                // выдаем соответствующее сообщение пользователю
                 if (_city.isNotEmpty && _weatherData == null) ...[
                   Text(
                     'Sorry, we couldn\'t find information for "$_city".\nPlease try another city.',
                     textAlign: TextAlign.center,
                     style: textStyleInter16Black(),
                   ),
+                  // Название искомого города
                 ] else if (_city.isNotEmpty) ...[
                   FittedBox(
+                    // Название города умещается в одну строку
                     fit: BoxFit.scaleDown,
                     child: Text(
+                      // Название города заглаными буквами
                       _city.toUpperCase(),
                       style: textStyleInter40Black().copyWith(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   sizedBoxHeight70,
+                  // Отображение данных о погоде, полученных из API
                   if (imageAsset != null && _weatherData != null)
                     WeatherCard(
                       weatherData: _weatherData,
@@ -85,25 +92,25 @@ class _MainScreenState extends State<MainScreen> {
     if (_weatherData != null) {
       final weatherIcon = _weatherData!.weatherIcon.toLowerCase();
       if (weatherIcon.contains('clear')) {
-        backgroundColor = CustomColors.sunnyColor;
+        backgroundColor = CustomColors.sunnyBackgroundColor;
         imageAsset = 'assets/icons/sun.png';
       }
       if (weatherIcon.contains('rain')) {
-        backgroundColor = CustomColors.rainyColor;
+        backgroundColor = CustomColors.rainyBackgroundColor;
         imageAsset = 'assets/icons/rainy.png';
       }
       if (weatherIcon.contains('snow')) {
-        backgroundColor = CustomColors.snowyColor;
+        backgroundColor = CustomColors.snowyBackgroundColor;
         imageAsset = 'assets/icons/snowfall.png';
       }
       if (weatherIcon.contains('cloud')) {
-        backgroundColor = CustomColors.cloudyColor;
+        backgroundColor = CustomColors.cloudyBackgroundColor;
         imageAsset = 'assets/icons/clouds.png';
       }
     } else {
-      // Если информация о погоде не найдена,.
+      // Если информация о погоде не найдена,
       // устанавливаем стандартный фон и не устанавливаем изображение
-      backgroundColor = CustomColors.backgroundColor;
+      backgroundColor = CustomColors.mainBackgroundColor;
       imageAsset = null;
     }
   }

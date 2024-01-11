@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
-// /// Класс позволяет легко создавать объекты WeatherData из данных JSON,
-// /// предоставляя удобный конструктор и фабричный метод.
+/// Класс позволяет легко создавать объекты WeatherData из данных JSON,
+/// предоставляя удобный конструктор и фабричный метод.
 class WeatherData {
   final String cityName;
   final String weatherIcon;

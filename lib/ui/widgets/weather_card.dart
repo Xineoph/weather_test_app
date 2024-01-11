@@ -25,11 +25,13 @@ class WeatherCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Данные о температуре воздуха
                 Text(
                   '${weatherData!.temperature}°C',
                   style: textStyleInter40Black(),
                 ),
                 sizedBoxWidth50,
+                // Изображение условного обозначения погоды
                 Image.asset(
                   imageAsset!,
                   height: 150,
@@ -41,6 +43,7 @@ class WeatherCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // Данные об ощущении температуры
                 Text(
                   'Feel like ${weatherData!.feelsLike} °C',
                   style: textStyleInter20Black(),
@@ -60,6 +63,7 @@ class WeatherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Данные о времени восхода
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -77,6 +81,7 @@ class WeatherCard extends StatelessWidget {
                   ],
                 ),
                 sizedBoxHeight50,
+                // Данные о влажности
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -101,6 +106,7 @@ class WeatherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Данные о времени заката
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -118,6 +124,7 @@ class WeatherCard extends StatelessWidget {
                   ],
                 ),
                 sizedBoxHeight50,
+                // Данные о направлении ветра
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,

@@ -3,10 +3,13 @@ import 'package:weather_test_app/common/colors.dart';
 import 'package:weather_test_app/common/routes.dart';
 import 'package:weather_test_app/common/spacers.dart';
 import 'package:weather_test_app/common/text_styles.dart';
-import 'package:weather_test_app/helpers/shared_preferences.dart';
+import 'package:weather_test_app/helpers/preferences/shared_preferences.dart';
 import 'package:weather_test_app/ui/widgets/button_widget.dart';
 import 'package:weather_test_app/ui/widgets/common_text_widgets.dart';
+import 'package:weather_test_app/common/decoration_text_form.dart';
 
+/// Страница регистрации пользователя
+///
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -19,11 +22,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late String _password;
   late String _rePassword;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // переменная для хранения состояния видимости пароля в форме регистрации
+
+  /// Переменная для хранения состояния видимости пароля в форме регистрации
   bool _showPassword = false;
   bool _isPressed = false;
 
-  //читаем данные пользователя
+  /// Читаем сахраненные данные пользователя
   @override
   void initState() {
     super.initState();
@@ -36,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.mainBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.only(
             top: 182,
@@ -68,15 +72,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  /// Форма ввода электроного адреса пользователя
   Widget buildEmailField() {
     return TextFormField(
+      // Показываем значение, сохранненное в SharedPreferences
       initialValue: '', //_email,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        fillColor: CustomColors.formColor,
-        filled: true,
-        hintStyle: textStyleInter16Black(),
-      ),
+      decoration: inputDecorationTextForm(),
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
@@ -91,17 +92,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  /// Форма ввода пароля
   Widget buildPasswordField() {
     return TextFormField(
-      //хранит значение, сохранненное в SharedPreferences
+      //показываем значение, сохранненное в SharedPreferences
       initialValue: '', //_password,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        fillColor: CustomColors.formColor,
-        filled: true,
-        //hintText: '******',
-        hintStyle: textStyleInter16Black(),
-        //изменение отображения пароля в текстовом поле
+      decoration: inputDecorationTextForm().copyWith(
         suffixIcon: IconButton(
           icon: Icon(
             _showPassword ? Icons.visibility : Icons.visibility_off,
@@ -113,6 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
         ),
       ),
+      // Изменение видимости пароля в текстовом поле
       obscureText: !_showPassword,
       // maxLength: 10,
       validator: (value) {
@@ -128,19 +125,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  /// Форма ввода подтверждения пароля
   Widget buildRePasswordField() {
     return TextFormField(
+      // Показываем значение, сохранненное в SharedPreferences
       initialValue: '', //_rePassword,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        fillColor: const Color(0xFFD9D9D9),
-        filled: true,
-        //hintText: '******',
-        hintStyle: const TextStyle(
-          fontFamily: 'Inter-SemiBold',
-          fontSize: 16,
-          color: Color(0xFF000000),
-        ),
+      decoration: inputDecorationTextForm().copyWith(
         suffixIcon: IconButton(
           icon: Icon(
             _showPassword ? Icons.visibility : Icons.visibility_off,
@@ -166,33 +156,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  /// Кнопка подтверждения регистрации пользователя
   Widget buildElevatedButtonRegister() {
     return buildElevatedButton(
       'Register',
       () async {
         if (_formKey.currentState!.validate()) {
-          // если пользователь с таким email уже зарегистрирован
+          // Показываем сообщение, если пользователь с таким email уже зарегистрирован
           final existingEmail = UserPreferences().getUserEmail();
           if (existingEmail == _email) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('User with this email is already registered'),
+              SnackBar(
+                content: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'User with this email is already registered',
+                    style: textStyleInter16White(),
+                  ),
+                ),
                 backgroundColor: CustomColors.redColor,
               ),
             );
           } else {
-            // если форма прошла валидацию,
-            //данные пользователя сохраняются в SharedPreferences
+            // Если форма прошла валидацию,
+            // данные пользователя сохраняются в SharedPreferences
             await UserPreferences().setUserEmail(_email);
             await UserPreferences().setUserPassword(_password);
             await UserPreferences().setUserRePassword(_rePassword);
 
             Navigator.pushNamed(context, Routes.main);
 
-            //всплывающее сообщение пользователю: регистрация завершена
+            // Всплывающее сообщение пользователю: регистрация завершена
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Registration completed'),
+              SnackBar(
+                content: Text(
+                  'Registration completed',
+                  style: textStyleInter16White(),
+                ),
                 backgroundColor: CustomColors.buttonColor,
               ),
             );
@@ -202,6 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  /// Кнопка перехода на страницу авторизации пользователя
   Widget buildAlreadHaveAccountText() {
     return GestureDetector(
       onTap: () async {

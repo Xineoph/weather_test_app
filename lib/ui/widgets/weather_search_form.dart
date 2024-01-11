@@ -1,7 +1,5 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
-import 'package:weather_test_app/common/text_styles.dart';
+import 'package:weather_test_app/common/decoration_text_form.dart';
 
 /// Класс SearchForm - виджет текстового поля для ввода города
 class SearchForm extends StatefulWidget {

@@ -3,10 +3,13 @@ import 'package:weather_test_app/common/colors.dart';
 import 'package:weather_test_app/common/routes.dart';
 import 'package:weather_test_app/common/spacers.dart';
 import 'package:weather_test_app/common/text_styles.dart';
-import 'package:weather_test_app/helpers/shared_preferences.dart';
+import 'package:weather_test_app/helpers/preferences/shared_preferences.dart';
 import 'package:weather_test_app/ui/widgets/button_widget.dart';
 import 'package:weather_test_app/ui/widgets/common_text_widgets.dart';
+import 'package:weather_test_app/common/decoration_text_form.dart';
 
+/// Страница авторизации пользователя
+///
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -21,7 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showPassword = false;
   bool _isPressed = false;
 
-  // автоматическоe заполнениe сохраненных данных пользователя
+  /// Автоматическое заполнение полей электронной почты
+  /// и пароля данными из SharedPreferences
   @override
   void initState() {
     super.initState();
@@ -29,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
     _password = UserPreferences().getUserPassword() ?? '';
   }
 
+  /// Сравниваем введенные пользователем данные
+  /// с сохраненными данными пользователя,
+  /// которые хранятся в SharedPreferences
   bool _checkData(String email, String password) {
     final savedEmail = UserPreferences().getUserEmail();
     final savedPassword = UserPreferences().getUserPassword();
@@ -39,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.mainBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.only(
             top: 182,
@@ -68,9 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  /// Форма ввода электронного адреса пользователя
   Widget buildEmailField() {
     return TextFormField(
-      //хранит значение, сохранненное в SharedPreferences
+      // Хранит значение, сохраненное в SharedPreferences
       initialValue: _email,
       decoration: inputDecorationTextForm(),
       keyboardType: TextInputType.emailAddress,
@@ -87,8 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  /// Форма ввода пароля
   Widget buildPasswordField() {
     return TextFormField(
+      // Хранит значение, сохраненное в SharedPreferences
       initialValue: _password,
       decoration: inputDecorationTextForm().copyWith(
         suffixIcon: IconButton(
@@ -116,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  /// Кнопка подтверждения авторизации пользователя
   Widget buildElevatedButtonLogin() {
     return buildElevatedButton(
       'Login',
@@ -125,15 +136,21 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushNamed(context, Routes.main);
 
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Successful authorization'),
+              SnackBar(
+                content: Text(
+                  'Successful authorization',
+                  style: textStyleInter16White(),
+                ),
                 backgroundColor: CustomColors.buttonColor,
               ),
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Incorrect email or password'),
+              SnackBar(
+                content: Text(
+                  'Incorrect email or password',
+                  style: textStyleInter16White(),
+                ),
                 backgroundColor: CustomColors.redColor,
               ),
             );
@@ -143,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  /// Кнопка перехода на страницу регистрации пользователя
   Widget buildNewAccountText() {
     return GestureDetector(
       onTap: () async {

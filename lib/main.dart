@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_test_app/common/routes.dart';
 import 'package:weather_test_app/ui/screens/home_page.dart';
-import 'package:weather_test_app/helpers/shared_preferences.dart';
+import 'package:weather_test_app/helpers/preferences/shared_preferences.dart';
 import 'package:weather_test_app/ui/screens/login_page.dart';
 import 'package:weather_test_app/ui/screens/main_page.dart';
 import 'package:weather_test_app/ui/screens/register_page.dart';

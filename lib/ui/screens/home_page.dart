@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather_test_app/ui/screens/login_page.dart';
 import 'package:weather_test_app/ui/screens/register_page.dart';
-import 'package:weather_test_app/helpers/shared_preferences.dart';
+import 'package:weather_test_app/helpers/preferences/shared_preferences.dart';
 
+/// Страница аутентификации пользователя
+///
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
